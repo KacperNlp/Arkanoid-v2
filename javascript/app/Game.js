@@ -21,6 +21,8 @@ class Game extends BindToHtml {
     this.paddle = null;
   }
 
+  //return and settings buttons init and handle
+
   #init() {
     this.#handleOfReturnButton();
     this.#handleOfSettingsButton();
@@ -45,6 +47,8 @@ class Game extends BindToHtml {
       console.log("settings");
     });
   }
+
+  //game
 
   newGame(lvl) {
     this.gameState = new GameState(lvl);
