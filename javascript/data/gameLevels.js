@@ -2,7 +2,7 @@ export const gameLevels = [
   {
     level: 1,
     unlocked: true,
-    map: [
+    gameMap: [
       { row: 0, column: 0, kind: 0 },
       { row: 0, column: 1, kind: 0 },
       { row: 0, column: 2, kind: 0 },
@@ -22,7 +22,7 @@ export const gameLevels = [
   {
     level: 2,
     unlocked: false,
-    map: [
+    gameMap: [
       { row: 0, column: 0, kind: 0 },
       { row: 0, column: 1, kind: 0 },
       { row: 0, column: 2, kind: 0 },

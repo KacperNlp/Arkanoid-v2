@@ -1,5 +1,6 @@
 import { BindToHtml } from "./BindToHtml.js";
 import { canvas } from "./Canvas.js";
+import { GameState } from "./GameState.js";
 import { levelsLayer } from "./LevelsLayer.js";
 import {
   HIDE_ELEMENT,
@@ -46,7 +47,7 @@ class Game extends BindToHtml {
   }
 
   newGame(lvl) {
-    canvas.drawCanvas();
+    this.gameState = new GameState(lvl);
   }
 }
 
