@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arcanoid</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css"
+        integrity="sha384-vSIIfh2YWi9wW0r9iZe7RJPrKwp6bG+s9QZMoITbCckVJqGCCRhc+ccxNcdpHuYu" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Londrina+Solid&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/style/main.min.css">
+</head>
+
+<body>
+    <!--main menu-->
+    <section class="layer" id="main-menu">
+        <div class="main-menu__container">
+            <button class="button" id="start-game-button">Start</button>
+            <button class="button" id="settings-button">Settings</button>
+        </div>
+    </section>
+
+    <!--levels layer-->
+    <section class="layer levels hidden" id="levels-layer">
+        <div class="levels__container">
+            <button class="button button--level"><span class="fas fa-lock"></span>1</button>
+            <button class="button button--level"><span class="fas fa-lock"></span>2</button>
+            <button class="button button--level"><span class="fas fa-lock"></span>3</button>
+            <button class="button button--level"><span class="fas fa-lock"></span>4</button>
+            <button class="button button--level"><span class="fas fa-lock"></span>1</button>
+            <button class="button button--level"><span class="fas fa-lock"></span>2</button>
+            <button class="button button--level"><span class="fas fa-lock"></span>3</button>
+            <button class="button button--level"><span class="fas fa-lock"></span>4</button>
+            <button class="button button--level"><span class="fas fa-lock"></span>1</button>
+            <button class="button button--level"><span class="fas fa-lock"></span>2</button>
+            <button class="button button--level"><span class="fas fa-lock"></span>3</button>
+            <button class="button button--level"><span class="fas fa-lock"></span>4</button>
+        </div>
+
+        <button class="button button--levels-layer-return" id="return-button-in-levels-layer"><span
+                class="fas fa-reply"></span> Return</button>
+        <button class="button button--levels-layer-settings" id="settings-button-in-levels-layer"><span
+                class="fas fa-tools"></span> Settings</button>
+    </section>
+
+    <!--game map-->
+    <section class="layer game-layer hidden" id="game-layer">
+        <canvas class="canvas" id="canvas"></canvas>
+
+        <button class="button button--in-game-return" id="return-button-in-game"><span class="fas fa-reply"></span>
+            Return</button>
+        <button class="button button--in-game-settings" id="settings-button-in-game"><span class="fas fa-tools"></span>
+            Settings</button>
+    </section>
+
+    <!--settings-->
+    <div class="settings hidden" id="settings-layer">
+        <h2></h2>
+        <form action=""><input type="text"><input type="text"></form>
+        <button></button>
+    </div>
+</body>
+
+</html>

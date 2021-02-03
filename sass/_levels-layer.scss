@@ -1,0 +1,13 @@
+.levels {
+  &__container {
+    padding: 20px;
+    width: 550px;
+    height: 450px;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    justify-items: center;
+    align-items: center;
+    box-shadow: $shadow;
+    border: 3px solid $buttonBg;
+  }
+}

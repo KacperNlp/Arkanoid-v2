@@ -1,0 +1,62 @@
+.button {
+  padding: 10px 20px;
+  border: $border;
+  background-color: $buttonBg;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-family: $fontFamily;
+  font-size: 2.5rem;
+  color: $fontColor;
+  outline-color: transparent;
+  cursor: pointer;
+  transition: 0.3s;
+
+  &:hover {
+    color: $buttonBg;
+    background-color: $fontColor;
+  }
+
+  &--level {
+    width: $lvlButtonSize;
+    height: $lvlButtonSize;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+
+    & span {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 4rem;
+      opacity: 0.2;
+    }
+  }
+
+  &--levels-layer-return {
+    position: absolute;
+    bottom: 150px;
+    left: 45%;
+    transform: translateX(-100%);
+  }
+
+  &--levels-layer-settings {
+    position: absolute;
+    bottom: 150px;
+    right: 45%;
+    transform: translateX(100%);
+  }
+
+  &--in-game-return {
+    position: absolute;
+    bottom: 150px;
+    left: 10%;
+  }
+
+  &--in-game-settings {
+    position: absolute;
+    bottom: 150px;
+    right: 10%;
+  }
+}

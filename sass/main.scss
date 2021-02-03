@@ -1,0 +1,24 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+@import "variables";
+
+html {
+  background-color: $siteBg;
+  font-size: $fontSize;
+  font-family: $fontFamily;
+  color: $fontColor;
+}
+
+@import "layer";
+@import "main-menu";
+@import "button";
+@import "levels-layer";
+@import "game";
+
+.hidden {
+  display: none;
+}
