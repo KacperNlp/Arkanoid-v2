@@ -2,6 +2,7 @@ import { BindToHtml } from "./BindToHtml.js";
 import { canvas } from "./Canvas.js";
 import { GameState } from "./GameState.js";
 import { levelsLayer } from "./LevelsLayer.js";
+import { Paddle } from "./Paddle.js";
 import {
   HIDE_ELEMENT,
   SHOW_ELEMENT,
@@ -52,6 +53,7 @@ class Game extends BindToHtml {
 
   newGame(lvl) {
     this.gameState = new GameState(lvl);
+    this.paddle = new Paddle();
 
     this.#animation();
   }
@@ -65,6 +67,7 @@ class Game extends BindToHtml {
   #drawElementsOnCanvas() {
     canvas.drawCanvas();
     this.#drawBricks();
+    this.paddle.draw();
   }
 
   #drawBricks() {

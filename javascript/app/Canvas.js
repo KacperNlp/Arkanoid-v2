@@ -4,8 +4,8 @@ import { media } from "./Media.js";
 
 export const CANVAS_BACKGROUND_SRC = "/assets/Background/background.jpg";
 const CANVAS_ID = "canvas";
-const CANVAS_WIDTH = 800;
-const CANVAS_HEIGHT = 600;
+export const CANVAS_WIDTH = 800;
+export const CANVAS_HEIGHT = 600;
 
 class Canvas extends BindToHtml {
   constructor() {
