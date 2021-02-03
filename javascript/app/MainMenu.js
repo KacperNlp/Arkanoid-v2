@@ -24,6 +24,7 @@ class MainMenu extends BindToHtml {
   #handleStartButton() {
     const button = this.bindById(START_GAME_BUTTON_ID);
     button.addEventListener("click", () => {
+      levelsLayer.generateLevelsBoard();
       visibilityOfLayer.changeVisibilityOfLayer(HIDE_ELEMENT, this.layer);
       visibilityOfLayer.changeVisibilityOfLayer(
         SHOW_ELEMENT,
