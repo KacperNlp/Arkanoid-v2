@@ -1,5 +1,6 @@
 import { BindToHtml } from "./BindToHtml.js";
 import { loader } from "./Loader.js";
+import { media } from "./Media.js";
 
 export const CANVAS_BACKGROUND_SRC = "/assets/Background/background.jpg";
 const CANVAS_ID = "canvas";
@@ -21,7 +22,7 @@ class Canvas extends BindToHtml {
   }
 
   drawCanvas() {
-    this.ctx.drawImage(loader.canvasBg, 0, 0);
+    this.ctx.drawImage(media.canvasBg, 0, 0);
   }
 }
 

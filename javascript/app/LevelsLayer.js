@@ -10,6 +10,7 @@ import { gameLevels } from "../data/gameLevels.js";
 import { game } from "./Game.js";
 import { loader, DATA_LOADED_EVENT_NAME } from "./Loader.js";
 import { CANVAS_BACKGROUND_SRC } from "./Canvas.js";
+import { BRICKS_SPRITE_SRC, media } from "./Media.js";
 
 const LEVEL_BUTTON_CLASS = {
   basic: "button",
@@ -99,13 +100,17 @@ class LevelsLayer extends BindToHtml {
   }
 
   #loadLevel(lvl) {
-    if (loader.canvasBg) {
+    if (media.canvasBg && media.bricksSprite) {
       game.newGame(lvl);
       return;
     }
 
-    if (!loader.canvasBg) {
-      loader.canvasBg = loader.loadImage(CANVAS_BACKGROUND_SRC);
+    if (!media.canvasBg) {
+      media.canvasBg = loader.loadImage(CANVAS_BACKGROUND_SRC);
+    }
+
+    if (!media.bricksSprite) {
+      media.bricksSprite = loader.loadImage(BRICKS_SPRITE_SRC);
     }
 
     window.addEventListener(DATA_LOADED_EVENT_NAME, () => game.newGame(lvl));

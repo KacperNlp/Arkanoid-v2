@@ -48,6 +48,23 @@ class Game extends BindToHtml {
 
   newGame(lvl) {
     this.gameState = new GameState(lvl);
+
+    this.#animation();
+  }
+
+  #animation = () => {
+    this.#drawElementsOnCanvas();
+
+    window.requestAnimationFrame(this.#animation);
+  };
+
+  #drawElementsOnCanvas() {
+    canvas.drawCanvas();
+    this.#drawBricks();
+  }
+
+  #drawBricks() {
+    this.gameState.getGameBoard().forEach((brick) => brick.draw());
   }
 }
 
