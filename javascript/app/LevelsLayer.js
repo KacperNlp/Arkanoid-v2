@@ -7,6 +7,9 @@ import {
 } from "./VisibilityOfLayes.js";
 import { tagsGenerator } from "./TagsGenerator.js";
 import { gameLevels } from "../data/gameLevels.js";
+import { game } from "./Game.js";
+import { loader, DATA_LOADED_EVENT_NAME } from "./Loader.js";
+import { CANVAS_BACKGROUND_SRC } from "./Canvas.js";
 
 const LEVEL_BUTTON_CLASS = {
   basic: "button",
@@ -40,7 +43,7 @@ class LevelsLayer extends BindToHtml {
 
     gameLevels.forEach((lvl) => {
       const { level, unlocked } = lvl;
-      const button = this.#levelButtonHandle(level, unlocked);
+      const button = this.#levelButtonGenerate(level, unlocked);
 
       levelsBoard.appendChild(button);
     });
@@ -67,7 +70,7 @@ class LevelsLayer extends BindToHtml {
     }
   }
 
-  #levelButtonHandle(lvl, isUnlocked) {
+  #levelButtonGenerate(lvl, isUnlocked) {
     const { basic, lvlButton, locked } = LEVEL_BUTTON_CLASS;
 
     const button = tagsGenerator.createTag("button");
@@ -83,10 +86,29 @@ class LevelsLayer extends BindToHtml {
     }
 
     button.addEventListener("click", () => {
-      console.log(lvl);
+      this.#levelButtonHandle(lvl);
     });
 
     return button;
+  }
+
+  #levelButtonHandle(lvl) {
+    this.#loadLevel(lvl);
+    visibilityOfLayer.changeVisibilityOfLayer(HIDE_ELEMENT, this.layer);
+    visibilityOfLayer.changeVisibilityOfLayer(SHOW_ELEMENT, game.layer);
+  }
+
+  #loadLevel(lvl) {
+    if (loader.canvasBg) {
+      game.newGame(lvl);
+      return;
+    }
+
+    if (!loader.canvasBg) {
+      loader.canvasBg = loader.loadImage(CANVAS_BACKGROUND_SRC);
+    }
+
+    window.addEventListener(DATA_LOADED_EVENT_NAME, () => game.newGame(lvl));
   }
 }
 
