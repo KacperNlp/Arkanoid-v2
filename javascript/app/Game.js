@@ -3,12 +3,13 @@ import { BindToHtml } from "./BindToHtml.js";
 import { canvas, CANVAS_WIDTH } from "./Canvas.js";
 import { GameState } from "./GameState.js";
 import { levelsLayer } from "./LevelsLayer.js";
-import { Paddle } from "./Paddle.js";
+import { Paddle, PADDLE_SPEED } from "./Paddle.js";
 import {
   HIDE_ELEMENT,
   SHOW_ELEMENT,
   visibilityOfLayer,
 } from "./VisibilityOfLayes.js";
+import { keyboardControle, MOVE_LEFT, MOVE_RIGHT } from "./KeyboardControl.js";
 
 const GAME_LAYER_ID = "game-layer";
 const RETURN_BUTTON_ID = "return-button-in-game";
@@ -64,6 +65,7 @@ class Game extends BindToHtml {
   #animation = () => {
     this.#drawElementsOnCanvas();
     this.#ballAnimation();
+    this.#paddleHandle();
 
     window.requestAnimationFrame(this.#animation);
   };
@@ -78,6 +80,30 @@ class Game extends BindToHtml {
   #ballAnimation() {
     this.ball.move();
     this.#collisionWithMapEdges();
+    this.#collisionWithBricks();
+    this.#collisionWithPaddle();
+  }
+
+  #paddleHandle() {
+    const { keyCode } = keyboardControle;
+
+    switch (keyCode) {
+      case MOVE_RIGHT:
+        for (
+          let i = PADDLE_SPEED;
+          i && this.paddle.isPaddleOnRightEdge();
+          i--
+        ) {
+          this.paddle.posX++;
+        }
+        break;
+
+      case MOVE_LEFT:
+        for (let i = PADDLE_SPEED; i && this.paddle.isPaddleOnLeftEdge(); i--) {
+          this.paddle.posX--;
+        }
+        break;
+    }
   }
 
   #drawBricks() {
@@ -93,6 +119,49 @@ class Game extends BindToHtml {
 
     if (posY <= 0) {
       this.ball.changeDirectionY();
+    }
+  }
+
+  #collisionWithBricks() {
+    const { posX: ballPosX, posY: ballPosY } = this.ball;
+    const ballCenterX = ballPosX + BALL_SIZE / 2;
+    const ballCenterY = ballPosY + BALL_SIZE / 2;
+
+    this.gameState.getGameBoard().forEach((brick, id, array) => {
+      const { posX: brickPosX, posY: brickPosY, width, height } = brick;
+
+      const brickRightEdge = brickPosX + width;
+      const brickBottomEdge = brickPosY + height;
+
+      if (
+        ballCenterX > brickPosX &&
+        ballCenterX < brickRightEdge &&
+        ballCenterY > brickPosY &&
+        ballCenterY < brickBottomEdge
+      ) {
+        brick.hp--;
+        this.ball.changeDirectionY();
+      }
+
+      if (!brick.hp) {
+        array.splice(id, 1);
+      }
+    });
+  }
+
+  #collisionWithPaddle() {
+    const { posX: paddlePosX, posY: paddlePosY, width } = this.paddle;
+    const { posX: ballPosX, posY: ballPosY, directionY } = this.ball;
+
+    if (directionY > 0) return;
+
+    if (
+      paddlePosX < ballPosX &&
+      paddlePosX + width > ballPosX &&
+      paddlePosY === ballPosY
+    ) {
+      this.ball.changeDirectionY();
+      this.ball.changeDirectionX();
     }
   }
 }

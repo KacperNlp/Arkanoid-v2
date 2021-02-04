@@ -15,7 +15,7 @@ export class Brick extends Sprite {
       BRICK_HEIGHT,
       media.bricksSprite
     );
-    this.hp = kind + 1;
+    this.hp = kind + 2;
     this.kind = kind;
   }
 
@@ -23,7 +23,7 @@ export class Brick extends Sprite {
     let posX,
       posY = 0;
 
-    if (this.hp) {
+    if (this.hp > 1) {
       posX = this.kind;
     } else {
       posY = 1;
