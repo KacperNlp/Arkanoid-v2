@@ -1,6 +1,6 @@
-import { Ball } from "./Ball.js";
+import { Ball, BALL_SIZE } from "./Ball.js";
 import { BindToHtml } from "./BindToHtml.js";
-import { canvas } from "./Canvas.js";
+import { canvas, CANVAS_WIDTH } from "./Canvas.js";
 import { GameState } from "./GameState.js";
 import { levelsLayer } from "./LevelsLayer.js";
 import { Paddle } from "./Paddle.js";
@@ -63,6 +63,7 @@ class Game extends BindToHtml {
 
   #animation = () => {
     this.#drawElementsOnCanvas();
+    this.#ballAnimation();
 
     window.requestAnimationFrame(this.#animation);
   };
@@ -74,8 +75,25 @@ class Game extends BindToHtml {
     this.ball.draw();
   }
 
+  #ballAnimation() {
+    this.ball.move();
+    this.#collisionWithMapEdges();
+  }
+
   #drawBricks() {
     this.gameState.getGameBoard().forEach((brick) => brick.draw());
+  }
+
+  #collisionWithMapEdges() {
+    const { posX, posY } = this.ball;
+
+    if (posX <= 0 || posX + BALL_SIZE >= CANVAS_WIDTH) {
+      this.ball.changeDirectionX();
+    }
+
+    if (posY <= 0) {
+      this.ball.changeDirectionY();
+    }
   }
 }
 

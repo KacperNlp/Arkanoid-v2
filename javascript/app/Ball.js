@@ -1,12 +1,9 @@
 import { CANVAS_WIDTH } from "./Canvas.js";
 import { Sprite } from "./Sprite.js";
-import {
-  PADDLE_POSITION_ON_Y_AXIS_IN_CANVAS,
-  PADDLE_HEIGHT,
-} from "./Paddle.js";
+import { PADDLE_POSITION_ON_Y_AXIS_IN_CANVAS } from "./Paddle.js";
 import { media } from "./Media.js";
 
-const BALL_SIZE = 64;
+export const BALL_SIZE = 64;
 const INITNIAL_POSITION_ON_X_AXIS_ON_CANVAS = CANVAS_WIDTH / 2 - BALL_SIZE / 2;
 const INITNIAL_POSITION_ON_Y_AXIS_ON_CANVAS =
   PADDLE_POSITION_ON_Y_AXIS_IN_CANVAS - BALL_SIZE;
@@ -26,9 +23,24 @@ export class Ball extends Sprite {
     );
 
     this.kind = kind;
+    this.directionX = 6;
+    this.directionY = 5;
   }
 
   draw() {
     super.draw(this.kind);
+  }
+
+  move() {
+    this.posX -= this.directionX;
+    this.posY -= this.directionY;
+  }
+
+  changeDirectionX() {
+    this.directionX = -this.directionX;
+  }
+
+  changeDirectionY() {
+    this.directionY = -this.directionY;
   }
 }
