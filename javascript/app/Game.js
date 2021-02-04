@@ -122,61 +122,20 @@ class Game extends BindToHtml {
     }
   }
 
-  #collisionWithBricks() {
-    const { posX: ballPosX, posY: ballPosY } = this.ball;
-    const ballCenterX = ballPosX + BALL_SIZE / 2;
-    const ballCenterY = ballPosY + BALL_SIZE / 2;
-
-    this.gameState.getGameBoard().forEach((brick, id, array) => {
-      const { posX: brickPosX, posY: brickPosY, width, height } = brick;
-
-      const brickRightEdge = brickPosX + width;
-      const brickBottomEdge = brickPosY + height;
-
-      if (
-        ballCenterX > brickPosX &&
-        ballCenterX < brickRightEdge &&
-        ballCenterY > brickPosY &&
-        ballCenterY < brickBottomEdge
-      ) {
-        brick.hp--;
-        this.ball.changeDirectionY();
-      }
-
-      if (!brick.hp) {
-        array.splice(id, 1);
-      }
-    });
-  }
+  #collisionWithBricks() {}
 
   #collisionWithPaddle() {
-    const {
-      posX: paddlePosX,
-      posY: paddlePosY,
-      width,
-      height: paddleHeight,
-    } = this.paddle;
-    const { posX: ballPosX, posY: ballPosY, directionY, height } = this.ball;
-    const ballRightEdge = ballPosX + BALL_SIZE;
+    const { directionX, directionY } = this.ball;
 
-    if (directionY > 0) return;
+    if (directionY < 0) return;
 
-    if (
-      paddlePosX <= ballRightEdge &&
-      paddlePosX + width >= ballPosX &&
-      paddlePosY === ballPosY + height
-    ) {
+    const vectores = {
+      directionX,
+      directionY,
+    };
+
+    if (this.ball.colissionWithAnotherSprite(vectores, this.paddle)) {
       this.ball.changeDirectionY();
-      this.ball.changeDirectionX();
-    }
-
-    if (
-      paddlePosX <= ballRightEdge &&
-      paddlePosX + width >= ballPosX &&
-      paddlePosY <= ballPosY + height &&
-      paddlePosY + paddleHeight >= ballPosY
-    ) {
-      this.ball.changeDirectionX();
     }
   }
 }

@@ -23,8 +23,8 @@ export class Ball extends Sprite {
     );
 
     this.kind = kind;
-    this.directionX = 6;
-    this.directionY = 5;
+    this.directionX = -6;
+    this.directionY = -5;
   }
 
   draw() {
@@ -32,8 +32,8 @@ export class Ball extends Sprite {
   }
 
   move() {
-    this.posX -= this.directionX;
-    this.posY -= this.directionY;
+    this.posX += this.directionX;
+    this.posY += this.directionY;
   }
 
   changeDirectionX() {
