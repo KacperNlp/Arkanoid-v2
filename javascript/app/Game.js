@@ -150,17 +150,32 @@ class Game extends BindToHtml {
   }
 
   #collisionWithPaddle() {
-    const { posX: paddlePosX, posY: paddlePosY, width } = this.paddle;
-    const { posX: ballPosX, posY: ballPosY, directionY } = this.ball;
+    const {
+      posX: paddlePosX,
+      posY: paddlePosY,
+      width,
+      height: paddleHeight,
+    } = this.paddle;
+    const { posX: ballPosX, posY: ballPosY, directionY, height } = this.ball;
+    const ballRightEdge = ballPosX + BALL_SIZE;
 
     if (directionY > 0) return;
 
     if (
-      paddlePosX < ballPosX &&
-      paddlePosX + width > ballPosX &&
-      paddlePosY === ballPosY
+      paddlePosX <= ballRightEdge &&
+      paddlePosX + width >= ballPosX &&
+      paddlePosY === ballPosY + height
     ) {
       this.ball.changeDirectionY();
+      this.ball.changeDirectionX();
+    }
+
+    if (
+      paddlePosX <= ballRightEdge &&
+      paddlePosX + width >= ballPosX &&
+      paddlePosY <= ballPosY + height &&
+      paddlePosY + paddleHeight >= ballPosY
+    ) {
       this.ball.changeDirectionX();
     }
   }
