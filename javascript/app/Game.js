@@ -122,7 +122,24 @@ class Game extends BindToHtml {
     }
   }
 
-  #collisionWithBricks() {}
+  #collisionWithBricks() {
+    const { directionX, directionY } = this.ball;
+
+    const vectores = {
+      directionX,
+      directionY,
+    };
+
+    this.gameState.getGameBoard().forEach((brick, id, bricksArray) => {
+      if (this.ball.colissionWithAnotherSprite(vectores, brick)) {
+        brick.hp--;
+      }
+
+      if (!brick.hp) {
+        bricksArray.splice(id, 1);
+      }
+    });
+  }
 
   #collisionWithPaddle() {
     const { directionX, directionY } = this.ball;
