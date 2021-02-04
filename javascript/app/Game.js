@@ -1,3 +1,4 @@
+import { Ball } from "./Ball.js";
 import { BindToHtml } from "./BindToHtml.js";
 import { canvas } from "./Canvas.js";
 import { GameState } from "./GameState.js";
@@ -20,6 +21,7 @@ class Game extends BindToHtml {
 
     this.gameState = null;
     this.paddle = null;
+    this.ball = null;
   }
 
   //return and settings buttons init and handle
@@ -54,6 +56,7 @@ class Game extends BindToHtml {
   newGame(lvl) {
     this.gameState = new GameState(lvl);
     this.paddle = new Paddle();
+    this.ball = new Ball();
 
     this.#animation();
   }
@@ -68,6 +71,7 @@ class Game extends BindToHtml {
     canvas.drawCanvas();
     this.#drawBricks();
     this.paddle.draw();
+    this.ball.draw();
   }
 
   #drawBricks() {
