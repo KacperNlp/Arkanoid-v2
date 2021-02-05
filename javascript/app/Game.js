@@ -78,9 +78,8 @@ class Game extends BindToHtml {
   }
 
   #ballAnimation() {
-    this.ball.move();
     this.#collisionWithMapEdges();
-    this.#collisionWithBricks();
+    this.#collisionWithBricksAndMove();
     this.#collisionWithPaddle();
   }
 
@@ -122,23 +121,38 @@ class Game extends BindToHtml {
     }
   }
 
-  #collisionWithBricks() {
+  #collisionWithBricksAndMove() {
     const { directionX, directionY } = this.ball;
+    const hitBricks = [];
 
     const vectores = {
       directionX,
       directionY,
     };
 
-    this.gameState.getGameBoard().forEach((brick, id, bricksArray) => {
-      if (this.ball.colissionWithAnotherSprite(vectores, brick)) {
-        brick.hp--;
-      }
+    this.ball.posX += directionX;
 
-      if (!brick.hp) {
-        bricksArray.splice(id, 1);
+    this.gameState.getGameBoard().forEach((brick, id) => {
+      if (this.ball.colissionWithAnotherSprite(vectores, brick)) {
+        hitBricks.push(id);
+        this.ball.changeDirectionX();
       }
     });
+
+    this.ball.posY += directionY;
+
+    this.gameState.getGameBoard().forEach((brick, id) => {
+      if (this.ball.colissionWithAnotherSprite(vectores, brick)) {
+        if (!hitBricks.includes(id)) {
+          hitBricks.push(id);
+        }
+        this.ball.changeDirectionY();
+      }
+    });
+
+    if (hitBricks.length) console.log(hitBricks);
+
+    this.#displayBricks(hitBricks, this.gameState.getGameBoard());
   }
 
   #collisionWithPaddle() {
@@ -154,6 +168,15 @@ class Game extends BindToHtml {
     if (this.ball.colissionWithAnotherSprite(vectores, this.paddle)) {
       this.ball.changeDirectionY();
     }
+  }
+
+  #displayBricks(hitBricksArray, blocks) {
+    hitBricksArray.forEach((id) => {
+      blocks[id].hp--;
+      if (!blocks[id].hp) {
+        blocks.splice(id, 1);
+      }
+    });
   }
 }
 

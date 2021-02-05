@@ -20,15 +20,12 @@ export class Brick extends Sprite {
   }
 
   draw() {
-    let posX,
-      posY = 0;
+    let posY = 0;
 
-    if (this.hp > 1) {
-      posX = this.kind;
-    } else {
+    if (this.hp === 1) {
       posY = 1;
     }
 
-    super.draw(posX, posY);
+    super.draw(this.kind, posY);
   }
 }

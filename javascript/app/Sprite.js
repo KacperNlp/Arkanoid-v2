@@ -48,9 +48,7 @@ export class Sprite {
   }
 
   colissionWithAnotherSprite(vectors, anotherSprite) {
-    const [directionX, directionY] = this.#getDirectionsOfCurrentSprite(
-      vectors
-    );
+    const [directionX, directionY] = this.getDirectionsOfCurrentSprite(vectors);
 
     if (
       anotherSprite.posX < directionX &&
@@ -64,7 +62,7 @@ export class Sprite {
     return false;
   }
 
-  #getDirectionsOfCurrentSprite(vectors) {
+  getDirectionsOfCurrentSprite(vectors) {
     const { directionX, directionY } = vectors;
 
     const vectorDirectionX =
