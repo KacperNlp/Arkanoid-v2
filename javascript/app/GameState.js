@@ -10,6 +10,8 @@ export class GameState {
     );
     const gameLevel = lvl;
 
+    this.isInGame = false;
+
     this.getGameBoard = () => gameBoard;
     this.getLevel = () => gameLevel;
   }

@@ -36,6 +36,7 @@ class Game extends BindToHtml {
     const button = this.bindById(RETURN_BUTTON_ID);
     button.addEventListener("click", () => {
       levelsLayer.generateLevelsBoard();
+      this.gameState.isInGame = false;
 
       visibilityOfLayer.changeVisibilityOfLayer(HIDE_ELEMENT, this.layer);
       visibilityOfLayer.changeVisibilityOfLayer(
@@ -58,15 +59,18 @@ class Game extends BindToHtml {
     this.gameState = new GameState(lvl);
     this.paddle = new Paddle();
     this.ball = new Ball();
+    this.gameState.isInGame = true;
 
     this.#animation();
   }
 
   #animation = () => {
-    this.#drawElementsOnCanvas();
-    this.#ballAnimation();
-    this.#paddleHandle();
-    this.#checkEndOfGame();
+    if (this.gameState.isInGame) {
+      this.#drawElementsOnCanvas();
+      this.#ballAnimation();
+      this.#paddleHandle();
+      this.#checkEndOfGame();
+    }
   };
 
   #drawElementsOnCanvas() {
