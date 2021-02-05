@@ -1,4 +1,4 @@
-import { CANVAS_WIDTH } from "./Canvas.js";
+import { CANVAS_WIDTH, CANVAS_HEIGHT } from "./Canvas.js";
 import { Sprite } from "./Sprite.js";
 import { PADDLE_POSITION_ON_Y_AXIS_IN_CANVAS } from "./Paddle.js";
 import { media } from "./Media.js";
@@ -37,5 +37,9 @@ export class Ball extends Sprite {
 
   changeDirectionY() {
     this.directionY = -this.directionY;
+  }
+
+  ballIsOutsideTheMap() {
+    return this.posY > CANVAS_HEIGHT;
   }
 }

@@ -66,8 +66,7 @@ class Game extends BindToHtml {
     this.#drawElementsOnCanvas();
     this.#ballAnimation();
     this.#paddleHandle();
-
-    window.requestAnimationFrame(this.#animation);
+    this.#checkEndOfGame();
   };
 
   #drawElementsOnCanvas() {
@@ -177,6 +176,17 @@ class Game extends BindToHtml {
         blocks.splice(id, 1);
       }
     });
+  }
+
+  #checkEndOfGame() {
+    console.log(this.ball.ballIsOutsideTheMap());
+    if (this.ball.ballIsOutsideTheMap()) {
+      alert("przegrałeś!");
+    } else if (!this.gameState.getGameBoard().length) {
+      alert("wygrałeś!");
+    } else {
+      window.requestAnimationFrame(this.#animation);
+    }
   }
 }
 
