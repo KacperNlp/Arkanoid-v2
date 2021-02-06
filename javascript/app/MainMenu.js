@@ -5,6 +5,7 @@ import {
   visibilityOfLayer,
 } from "./VisibilityOfLayes.js";
 import { levelsLayer } from "./LevelsLayer.js";
+import { settings } from "./Settings.js";
 
 const MAIN_MENU_LAYER_ID = "main-menu";
 const SETTINGS_BUTTON_ID = "settings-button";
@@ -36,7 +37,7 @@ class MainMenu extends BindToHtml {
   #handleSettingsButton() {
     const button = this.bindById(SETTINGS_BUTTON_ID);
     button.addEventListener("click", () => {
-      console.log("settings");
+      visibilityOfLayer.changeVisibilityOfLayer(SHOW_ELEMENT, settings.layer);
     });
   }
 }

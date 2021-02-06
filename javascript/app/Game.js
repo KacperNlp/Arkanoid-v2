@@ -18,6 +18,7 @@ import {
 } from "./KeyboardControl.js";
 import { message } from "./Message.js";
 import { levelsStorage } from "./LevelsStorage.js";
+import { settings } from "./Settings.js";
 
 const GAME_LAYER_ID = "game-layer";
 const RETURN_BUTTON_ID = "return-button-in-game";
@@ -57,7 +58,7 @@ class Game extends BindToHtml {
   #handleOfSettingsButton() {
     const button = this.bindById(SETTINGS_BUTTON_ID);
     button.addEventListener("click", () => {
-      console.log("settings");
+      visibilityOfLayer.changeVisibilityOfLayer(SHOW_ELEMENT, settings.layer);
     });
   }
 

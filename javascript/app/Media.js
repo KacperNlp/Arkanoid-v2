@@ -8,6 +8,17 @@ class Media {
     this.bricksSprite = null;
     this.canvasBg = null;
     this.paddleSprite = null;
+    //sounds
+    this.gameSound = 0.3;
+    this.music = 0.3;
+  }
+
+  changeGameSound(volume) {
+    this.gameSound = volume;
+  }
+
+  changeMusic(volume) {
+    this.music = volume;
   }
 }
 

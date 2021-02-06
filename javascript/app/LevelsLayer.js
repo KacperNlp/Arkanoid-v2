@@ -17,6 +17,7 @@ import {
   PADDLE_SPRITE_SRC,
 } from "./Media.js";
 import { levelsStorage } from "./LevelsStorage.js";
+import { settings } from "./Settings.js";
 
 const LEVEL_BUTTON_CLASS = {
   basic: "button",
@@ -67,7 +68,7 @@ class LevelsLayer extends BindToHtml {
   #settingsButtonHandle() {
     const button = this.bindById(SETTINGS_BUTTON_ID);
     button.addEventListener("click", () => {
-      console.log("settings");
+      visibilityOfLayer.changeVisibilityOfLayer(SHOW_ELEMENT, settings.layer);
     });
   }
 
