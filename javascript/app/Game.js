@@ -10,6 +10,7 @@ import {
   visibilityOfLayer,
 } from "./VisibilityOfLayes.js";
 import { keyboardControle, MOVE_LEFT, MOVE_RIGHT } from "./KeyboardControl.js";
+import { message } from "./Message.js";
 
 const GAME_LAYER_ID = "game-layer";
 const RETURN_BUTTON_ID = "return-button-in-game";
@@ -66,10 +67,10 @@ class Game extends BindToHtml {
 
   #animation = () => {
     if (this.gameState.isInGame) {
+      this.#checkEndOfGame();
       this.#drawElementsOnCanvas();
       this.#ballAnimation();
       this.#paddleHandle();
-      this.#checkEndOfGame();
     }
   };
 
@@ -134,7 +135,7 @@ class Game extends BindToHtml {
     };
 
     this.ball.posX += directionX;
-
+    //hit on Y-axis
     this.gameState.getGameBoard().forEach((brick, id) => {
       if (this.ball.colissionWithAnotherSprite(vectores, brick)) {
         hitBricks.push(id);
@@ -143,17 +144,16 @@ class Game extends BindToHtml {
     });
 
     this.ball.posY += directionY;
-
+    //hit on X-axis
     this.gameState.getGameBoard().forEach((brick, id) => {
       if (this.ball.colissionWithAnotherSprite(vectores, brick)) {
         if (!hitBricks.includes(id)) {
+          //blockade before second hit
           hitBricks.push(id);
         }
         this.ball.changeDirectionY();
       }
     });
-
-    if (hitBricks.length) console.log(hitBricks);
 
     this.#displayBricks(hitBricks, this.gameState.getGameBoard());
   }
@@ -183,11 +183,12 @@ class Game extends BindToHtml {
   }
 
   #checkEndOfGame() {
-    console.log(this.ball.ballIsOutsideTheMap());
     if (this.ball.ballIsOutsideTheMap()) {
-      alert("przegrałeś!");
+      message.showMessage(false);
+      visibilityOfLayer.changeVisibilityOfLayer(SHOW_ELEMENT, message.layer);
     } else if (!this.gameState.getGameBoard().length) {
-      alert("wygrałeś!");
+      message.showMessage(true);
+      visibilityOfLayer.changeVisibilityOfLayer(SHOW_ELEMENT, message.layer);
     } else {
       window.requestAnimationFrame(this.#animation);
     }
