@@ -1,0 +1,81 @@
+.settings {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 500px;
+  height: 550px;
+  background: $siteBg;
+  border: 3px solid $buttonBg;
+
+  &__header {
+    position: absolute;
+    top: 50px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-size: 5rem;
+  }
+
+  &__bar-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 80%;
+    padding: 15px 0;
+
+    & input {
+      width: 80%;
+      cursor: pointer;
+      outline-color: transparent;
+      outline: transparent;
+    }
+
+    & span {
+      font-size: 3rem;
+    }
+  }
+
+  &__button {
+    position: absolute;
+    bottom: 50px;
+  }
+}
+input[type="range"] {
+  overflow: hidden;
+  -webkit-appearance: none;
+  background-color: $fontColor;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 10px;
+  -webkit-appearance: none;
+  color: $buttonBg;
+  margin-top: -1px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  width: 10px;
+  -webkit-appearance: none;
+  height: 10px;
+  background: #434343;
+  box-shadow: -200px 0 0 200px $buttonBg;
+}
+
+/** FF*/
+input[type="range"]::-moz-range-progress {
+  background-color: $buttonBg;
+}
+input[type="range"]::-moz-range-track {
+  background-color: $fontColor;
+}
+/* IE*/
+input[type="range"]::-ms-fill-lower {
+  background-color: $buttonBg;
+}
+input[type="range"]::-ms-fill-upper {
+  background-color: $fontColor;
+}
