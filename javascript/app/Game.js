@@ -9,7 +9,13 @@ import {
   SHOW_ELEMENT,
   visibilityOfLayer,
 } from "./VisibilityOfLayes.js";
-import { keyboardControle, MOVE_LEFT, MOVE_RIGHT } from "./KeyboardControl.js";
+import {
+  keyboardControle,
+  MOVE_LEFT,
+  MOVE_RIGHT,
+  PAUSE_KEY_CODE,
+  SETTINGS_KEY_CODE,
+} from "./KeyboardControl.js";
 import { message } from "./Message.js";
 import { levelsStorage } from "./LevelsStorage.js";
 
@@ -69,11 +75,30 @@ class Game extends BindToHtml {
   #animation = () => {
     if (this.gameState.isInGame) {
       this.#checkEndOfGame();
-      this.#drawElementsOnCanvas();
-      this.#ballAnimation();
-      this.#paddleHandle();
+      this.#handleSettingsAndPauseKeyEvent();
+      if (!this.gameState.isPaused) {
+        this.#drawElementsOnCanvas();
+        this.#ballAnimation();
+        this.#paddleHandle();
+      }
     }
   };
+
+  #handleSettingsAndPauseKeyEvent() {
+    const { keyCode } = keyboardControle;
+
+    switch (keyCode) {
+      case PAUSE_KEY_CODE:
+        this.gameState.changePause();
+        keyboardControle.keyCode = null;
+        break;
+
+      case SETTINGS_KEY_CODE:
+        this.gameState.changePause();
+        keyboardControle.keyCode = null;
+        break;
+    }
+  }
 
   #drawElementsOnCanvas() {
     canvas.drawCanvas();

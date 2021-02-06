@@ -11,8 +11,13 @@ export class GameState {
     const gameLevel = lvl;
 
     this.isInGame = false;
+    this.isPaused = false;
 
     this.getGameBoard = () => gameBoard;
     this.getLevel = () => gameLevel;
+  }
+
+  changePause() {
+    this.isPaused = !this.isPaused;
   }
 }
