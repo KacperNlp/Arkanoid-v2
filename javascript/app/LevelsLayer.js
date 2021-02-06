@@ -16,6 +16,7 @@ import {
   media,
   PADDLE_SPRITE_SRC,
 } from "./Media.js";
+import { levelsStorage } from "./LevelsStorage.js";
 
 const LEVEL_BUTTON_CLASS = {
   basic: "button",
@@ -48,8 +49,8 @@ class LevelsLayer extends BindToHtml {
     this.#clearBoard(levelsBoard);
 
     gameLevels.forEach((lvl) => {
-      const { level, unlocked } = lvl;
-      const button = this.#levelButtonGenerate(level, unlocked);
+      const { level } = lvl;
+      const button = this.#levelButtonGenerate(level);
 
       levelsBoard.appendChild(button);
     });
@@ -76,8 +77,9 @@ class LevelsLayer extends BindToHtml {
     }
   }
 
-  #levelButtonGenerate(lvl, isUnlocked) {
+  #levelButtonGenerate(lvl) {
     const { basic, lvlButton, locked } = LEVEL_BUTTON_CLASS;
+    const isUnlocked = levelsStorage.getLevelFromStorage(lvl);
 
     const button = tagsGenerator.createTag("button");
     button.setAttribute("class", `${basic} ${lvlButton}`);
@@ -92,7 +94,9 @@ class LevelsLayer extends BindToHtml {
     }
 
     button.addEventListener("click", () => {
-      this.#levelButtonHandle(lvl);
+      if (isUnlocked) {
+        this.#levelButtonHandle(lvl);
+      }
     });
 
     return button;

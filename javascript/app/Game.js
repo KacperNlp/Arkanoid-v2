@@ -11,6 +11,7 @@ import {
 } from "./VisibilityOfLayes.js";
 import { keyboardControle, MOVE_LEFT, MOVE_RIGHT } from "./KeyboardControl.js";
 import { message } from "./Message.js";
+import { levelsStorage } from "./LevelsStorage.js";
 
 const GAME_LAYER_ID = "game-layer";
 const RETURN_BUTTON_ID = "return-button-in-game";
@@ -187,6 +188,7 @@ class Game extends BindToHtml {
       message.showMessage(false);
       visibilityOfLayer.changeVisibilityOfLayer(SHOW_ELEMENT, message.layer);
     } else if (!this.gameState.getGameBoard().length) {
+      levelsStorage.addLevelToStorage(this.gameState.getLevel());
       message.showMessage(true);
       visibilityOfLayer.changeVisibilityOfLayer(SHOW_ELEMENT, message.layer);
     } else {
