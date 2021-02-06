@@ -167,6 +167,7 @@ class Game extends BindToHtml {
       if (this.ball.colissionWithAnotherSprite(vectores, brick)) {
         hitBricks.push(id);
         this.ball.changeDirectionX();
+        settings.playGameSound();
       }
     });
 
@@ -179,6 +180,7 @@ class Game extends BindToHtml {
           hitBricks.push(id);
         }
         this.ball.changeDirectionY();
+        settings.playGameSound();
       }
     });
 

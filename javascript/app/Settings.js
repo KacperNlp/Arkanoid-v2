@@ -1,5 +1,4 @@
 import { BindToHtml } from "./BindToHtml.js";
-import { media } from "./Media.js";
 import { HIDE_ELEMENT, visibilityOfLayer } from "./VisibilityOfLayes.js";
 
 const SETTINGS_CLOSE_BUTTON_ID = "settings-close-btn";
@@ -10,6 +9,11 @@ const SETTINGS_MUSIC_INPUT_ID = "music-sounds-volume";
 class Settings extends BindToHtml {
   constructor() {
     super(SETTINGS_LAYER_ID);
+    this.gameSoundVolume = 0.3;
+    this.gameSound = null;
+    this.musicVolume = 0.3;
+    this.music = null;
+
     this.#init();
   }
 
@@ -39,11 +43,30 @@ class Settings extends BindToHtml {
     const inputId = target.getAttribute("id");
 
     if (inputId === SETTINGS_MUSIC_INPUT_ID) {
-      media.changeMusic(volume);
+      this.changeMusic(volume);
     } else if (inputId === SETTINGS_GAME_SOUND_INPUT_ID) {
-      media.changeGameSound(volume);
+      this.changeGameSound(volume);
     }
   };
+
+  changeGameSound(volume) {
+    this.gameSoundVolume = volume;
+    this.gameSound.volume = this.gameSoundVolume;
+  }
+
+  changeMusic(volume) {
+    this.musicVolume = volume;
+    this.music.volume = this.musicVolume;
+  }
+
+  playMusic() {
+    this.music.play();
+    this.music.loop = true;
+  }
+
+  playGameSound() {
+    this.gameSound.play();
+  }
 }
 
 export const settings = new Settings();

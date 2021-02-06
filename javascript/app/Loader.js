@@ -42,6 +42,13 @@ class Loader extends BindToHtml {
     return img;
   }
 
+  loadAudio(audioUrl) {
+    const audio = new Audio();
+    audio.src = audioUrl;
+
+    return audio;
+  }
+
   #itemLoaded(event) {
     event.target.removeEventListener(event.type, this.#itemLoaded, false);
     this.counterOfLoadedElements++;

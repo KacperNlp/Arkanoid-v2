@@ -6,6 +6,8 @@ import {
 } from "./VisibilityOfLayes.js";
 import { levelsLayer } from "./LevelsLayer.js";
 import { settings } from "./Settings.js";
+import { MUSIC_SRC, BRICK_HIT_SOUND_SRC } from "./Media.js";
+import { loader } from "./Loader.js";
 
 const MAIN_MENU_LAYER_ID = "main-menu";
 const SETTINGS_BUTTON_ID = "settings-button";
@@ -20,6 +22,7 @@ class MainMenu extends BindToHtml {
   #init() {
     this.#handleStartButton();
     this.#handleSettingsButton();
+    this.#setMusicAndGameSound();
   }
 
   #handleStartButton() {
@@ -39,6 +42,12 @@ class MainMenu extends BindToHtml {
     button.addEventListener("click", () => {
       visibilityOfLayer.changeVisibilityOfLayer(SHOW_ELEMENT, settings.layer);
     });
+  }
+
+  #setMusicAndGameSound() {
+    settings.music = loader.loadAudio(MUSIC_SRC);
+    settings.gameSound = loader.loadAudio(BRICK_HIT_SOUND_SRC);
+    settings.playMusic();
   }
 }
 
