@@ -10,9 +10,9 @@ const SETTINGS_MUSIC_INPUT_ID = "music-sounds-volume";
 class Settings extends BindToHtml {
   constructor() {
     super(SETTINGS_LAYER_ID);
-    this.gameSoundVolume = 0.05;
+    this.gameSoundVolume = 0.3;
     this.gameSound = null;
-    this.musicVolume = 0.05;
+    this.musicVolume = 0.3;
     this.music = null;
 
     this.#init();
