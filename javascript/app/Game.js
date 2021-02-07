@@ -58,6 +58,8 @@ class Game extends BindToHtml {
   #handleOfSettingsButton() {
     const button = this.bindById(SETTINGS_BUTTON_ID);
     button.addEventListener("click", () => {
+      this.gameState.changePause();
+      keyboardControle.keyCode = null;
       visibilityOfLayer.changeVisibilityOfLayer(SHOW_ELEMENT, settings.layer);
     });
   }
@@ -96,6 +98,7 @@ class Game extends BindToHtml {
 
       case SETTINGS_KEY_CODE:
         this.gameState.changePause();
+        visibilityOfLayer.changeVisibilityOfLayer(SHOW_ELEMENT, settings.layer);
         keyboardControle.keyCode = null;
         break;
     }

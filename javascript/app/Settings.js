@@ -1,4 +1,5 @@
 import { BindToHtml } from "./BindToHtml.js";
+import { game } from "./Game.js";
 import { HIDE_ELEMENT, visibilityOfLayer } from "./VisibilityOfLayes.js";
 
 const SETTINGS_CLOSE_BUTTON_ID = "settings-close-btn";
@@ -9,9 +10,9 @@ const SETTINGS_MUSIC_INPUT_ID = "music-sounds-volume";
 class Settings extends BindToHtml {
   constructor() {
     super(SETTINGS_LAYER_ID);
-    this.gameSoundVolume = 0.3;
+    this.gameSoundVolume = 0.05;
     this.gameSound = null;
-    this.musicVolume = 0.3;
+    this.musicVolume = 0.05;
     this.music = null;
 
     this.#init();
@@ -27,6 +28,9 @@ class Settings extends BindToHtml {
     const button = this.bindById(SETTINGS_CLOSE_BUTTON_ID);
 
     button.addEventListener("click", () => {
+      if (!!game.gameState) {
+        game.gameState.isPaused = false;
+      }
       visibilityOfLayer.changeVisibilityOfLayer(HIDE_ELEMENT, this.layer);
     });
   }
@@ -61,6 +65,7 @@ class Settings extends BindToHtml {
 
   playMusic() {
     this.music.play();
+    this.music.volume = 0;
     this.music.loop = true;
   }
 
